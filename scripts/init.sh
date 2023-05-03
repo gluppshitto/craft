@@ -4,7 +4,10 @@ yum update -y
 sudo yum -y install java-17-openjdk
 sudo yum -y install unzip
 
+[[ -d world ]] || mkdir world
+[[ -d world/region ]] || mkdir world/region
 [[ -d minecraft_server ]] || mkdir minecraft_server
+
 cd minecraft_server
 
 # download here
@@ -17,5 +20,4 @@ if [ ! -f "eula.txt" ]; then
 fi
 
 # run server
-sudo chmod +x run.sh
-./run.sh
+java @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.18.2-40.2.0/unix_args.txt "$@"
