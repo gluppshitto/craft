@@ -4,9 +4,7 @@ yum update -y
 sudo yum -y install java-17-openjdk
 sudo yum -y install unzip
 
-[[ -d minecraft_server ]] || mkdir minecraft_server
-[[ -d minecraft_server/world ]] || mkdir minecraft_server/world
-[[ -d minecraft_server/world/region ]] || mkdir minecraft_server/world/region
+[[ -d minecraft_server ]] || mkdir -p minecraft_server/world/region
 
 # download here
 sudo chmod +x scripts/download.sh
