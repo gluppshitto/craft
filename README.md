@@ -1,2 +1,2 @@
 # craft
-craft server stuff
+Bootstrap Minecraft server shit
