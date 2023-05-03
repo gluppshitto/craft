@@ -9,8 +9,8 @@ sudo yum -y install unzip
 [[ -d minecraft_server/world/region ]] || mkdir minecraft_server/world/region
 
 # download here
-sudo chmod +x download.sh
-./download.sh
+sudo chmod +x scripts/download.sh
+scripts/download.sh
 
 if [ ! -f "eula.txt" ]; then
   # you must agree to eula bla bla bla
