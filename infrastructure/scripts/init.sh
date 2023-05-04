@@ -7,8 +7,8 @@ yum update -y
 cd minecraft_server
 
 # install JAVA 17
-sudo wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm &&
-sudo rpm -ivh jdk-17_linux-x64_bin.rpmCopied! &&
+sudo wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm 
+sudo rpm -ivh jdk-17_linux-x64_bin.rpm
 java -version
 
 sudo aws s3 cp s3://glupp-metrics-storage/LITV3-Serverpack-1.10.zip ./lts.zip
@@ -30,6 +30,12 @@ cp -a serverpack_region_1/region/. world/region/
 sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_2.tar.gz 
 sudo tar xvf serverpack_region_2.tar.gz
 cp -a serverpack_region_2/region/. world/region/
+
+# sudo -i
+# wget https://github.com/gluppshitto/craft/raw/main/infrastructure/scripts/backup.sh
+# touch ../etc/cron.d/backup_hourly
+# echo "0 * * * * root /bin/bash /minecraft_server/backup.sh" > ../etc/cron.d/backup_hourly
+
 
 if [ ! -f "eula.txt" ]; then
   # you must agree to eula bla bla bla
