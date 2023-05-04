@@ -41,8 +41,8 @@ echo "0 * * * * root aws s3 cp world s3://glupp-metrics-storage/world/ --recursi
 
 sudo sed -i s/eula=false/eula=true/g eula.txt
 
-sudo sed -i s/-Xmx6G/-Xmx8G/g user_jvm_args.txt
-sudo sed -i s/-Xmn128M/-Xmn256M/g user_jvm_args.txt
+sudo sed -i s/-Xmx6G/-Xmx12G/g user_jvm_args.txt
+sudo sed -i s/-Xmn128M/-Xmn612M/g user_jvm_args.txt
 
 # run server
 until sudo java @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.18.2-40.2.0/unix_args.txt "$@"; do
