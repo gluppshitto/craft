@@ -40,6 +40,7 @@ touch ../etc/cron.d/backup_hourly
 echo "0 * * * * root aws s3 cp world s3://glupp-metrics-storage/world/ --recursive" > ../etc/cron.d/backup_hourly
 
 sudo sed -i s/eula=false/eula=true/g eula.txt
+
 sudo sed -i s/-Xmx6G/-Xmx8G/g user_jvm_args.txt
 sudo sed -i s/-Xmn128M/-Xmn256M/g user_jvm_args.txt
 
