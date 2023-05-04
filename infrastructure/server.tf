@@ -85,6 +85,11 @@ resource "aws_iam_role_policy_attachment" "ssm_attachment_server" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
+resource "aws_iam_role_policy_attachment" "s3_attachment_server" {
+  role       = aws_iam_role.server_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
 resource "aws_security_group" "server_sg" {
   name        = "server-sg"
   description = "Server Security Group"
