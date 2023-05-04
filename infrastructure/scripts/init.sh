@@ -23,11 +23,11 @@ sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_world.
 sudo tar xvf serverpack_world.tar.gz
 sudo cp -a serverpack_world/. world/
 
-sudo curl -s -L https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_1.tar.gz 
+sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_1.tar.gz 
 sudo tar xvf serverpack_region_1.tar.gz
 cp -a serverpack_region_1/. world/region/
 
-sudo curl -s -L https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_2.tar.gz 
+sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_2.tar.gz 
 sudo tar xvf serverpack_region_2.tar.gz
 cp -a serverpack_region_2/. world/region/
 
