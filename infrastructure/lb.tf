@@ -37,11 +37,6 @@ module "nlb" {
   ]
 }
 
-resource "aws_autoscaling_attachment" "attachments" {
-  autoscaling_group_name = aws_autoscaling_group.server_asg.name
-  lb_target_group_arn    = module.nlb.target_group_arns[0]
-}
-
 resource "aws_vpc_endpoint" "ec2" {
   vpc_id            = data.aws_vpc.main.id
   service_name      = "com.amazonaws.eu-west-2.ec2"

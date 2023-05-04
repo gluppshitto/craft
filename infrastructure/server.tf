@@ -26,6 +26,8 @@ resource "aws_autoscaling_group" "server_asg" {
     version = "$Latest"
   }
 
+  target_group_arns = [module.nlb.target_group_arns[0]]
+
   tag {
     key                 = "service"
     value               = "server"
