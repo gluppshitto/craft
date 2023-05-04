@@ -1,4 +1,3 @@
-// TODO DNS
 resource "aws_route53_zone" "deanfogarty_link" {
   name = "deanfogarty.link"
 }
