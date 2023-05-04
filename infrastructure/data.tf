@@ -16,8 +16,8 @@ data "aws_subnet" "subnet" {
 
 locals {
   all_subnets     = [for i in toset(data.aws_subnets.subnets.ids) : data.aws_subnet.subnet[i]]
-  public_subnets  = [for subnet in local.all_subnets : length(split("public", subnet.id)) > 1 ? null : subnet.id]
-  private_subnets = [for subnet in local.all_subnets : length(split("private", subnet.id)) > 1 ? null : subnet.id]
+  public_subnets  = [for subnet in local.all_subnets : length(split("10.0.10", subnet.cidr_block)) > 1 ? null : subnet.id]
+  private_subnets = [for subnet in local.all_subnets : length(split("10.0.10", subnet.cidr_block)) > 1 ? subnet.id : null]
 }
 
 output "public_subnets" {
