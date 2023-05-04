@@ -25,11 +25,11 @@ sudo cp -a serverpack_world/. world/
 
 sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_1.tar.gz 
 sudo tar xvf serverpack_region_1.tar.gz
-cp -a serverpack_region_1/. world/region/
+cp -a serverpack_region_1/region/. world/region/
 
 sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_2.tar.gz 
 sudo tar xvf serverpack_region_2.tar.gz
-cp -a serverpack_region_2/. world/region/
+cp -a serverpack_region_2/region/. world/region/
 
 if [ ! -f "eula.txt" ]; then
   # you must agree to eula bla bla bla
