@@ -45,7 +45,7 @@ sudo sed -i s/-Xmx6G/-Xmx12G/g user_jvm_args.txt
 sudo sed -i s/-Xmn128M/-Xmn612M/g user_jvm_args.txt
 
 # run server
-until java @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.18.2-40.2.0/unix_args.txt "$@"; do
-  aws s3 cp world s3://glupp-metrics-storage/world/ --recursive
-  shutdown -h now
+until sudo java @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.18.2-40.2.0/unix_args.txt "$@"; do
+  sudo aws s3 cp world s3://glupp-metrics-storage/world/ --recursive
+  sudo shutdown -h now
 done
