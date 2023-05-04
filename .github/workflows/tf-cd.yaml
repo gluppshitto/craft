@@ -29,7 +29,7 @@ jobs:
 
       - name: Terraform build
         run: |
-          cd infrastructure/terraform/
+          cd infrastructure/
           ~/.bin/terraform init -upgrade -reconfigure
           ~/.bin/terraform apply -auto-approve
           ~/.bin/terraform output -json > output.json
