@@ -39,11 +39,7 @@ sudo -i
 touch ../etc/cron.d/backup_hourly
 echo "0 * * * * root aws s3 cp world s3://glupp-metrics-storage/world/ --recursive" > ../etc/cron.d/backup_hourly
 
-
-if [ ! -f "eula.txt" ]; then
-  # you must agree to eula bla bla bla
-  sudo sed -i s/eula=false/eula=true/g eula.txt
-fi
+sudo sed -i s/eula=false/eula=true/g eula.txt
 
 # run server
 sudo java @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.18.2-40.2.0/unix_args.txt "$@"
