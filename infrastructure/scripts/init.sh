@@ -37,7 +37,7 @@ fi
 
 sudo -i
 touch ../etc/cron.d/backup_hourly
-echo "0 * * * * root aws s3 cp world s3://glupp-metrics-storage/world/ --recursive" > ../etc/cron.d/backup_hourly
+echo "0 * * * * root aws s3 cp minecraft_server/world s3://glupp-metrics-storage/world/ --recursive" > ../etc/cron.d/backup_hourly
 
 sudo sed -i s/eula=false/eula=true/g eula.txt
 
