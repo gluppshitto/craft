@@ -1,0 +1,43 @@
+name: 'Nuke'
+
+on:
+  workflow_dispatch: {}
+
+env:
+  AWS_DEFAULT_REGION: eu-west-2
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  nuke:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.ROOT_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.ROOT_AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: eu-west-2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+        
+      - name: Install terraform
+        id: install-terraform
+        run: |
+          set -x
+          mkdir -p bin
+          cd bin
+          wget -q https://releases.hashicorp.com/terraform/1.4.5/terraform_1.4.5_linux_amd64.zip
+          unzip terraform_1.4.5_linux_amd64.zip
+          chmod +x terraform
+
+      - name: Terraform Destroy ${{matrix.region}}
+        run: |
+          set -x
+          workingDir=$(pwd)
+          cd infrastructure/
+          $workingDir/bin/terraform init 
+          $workingDir/bin/terraform destroy -auto-approve
+
