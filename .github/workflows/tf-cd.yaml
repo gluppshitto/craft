@@ -1,0 +1,35 @@
+name: 'Terraform CD'
+
+on:
+  push:
+    paths:
+      - '.github/workflows/tf-cd.yaml'
+      - 'infrastructure/**'
+  workflow_dispatch: {}
+
+jobs:
+  terraform-cd:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.ROOT_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.ROOT_AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: eu-west-2
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y jq
+          mkdir ~/.bin
+          cd ~/.bin
+          wget https://releases.hashicorp.com/terraform/1.4.5/terraform_1.4.5_linux_amd64.zip
+          unzip terraform_1.4.5_linux_amd64.zip
+          chmod +x terraform
+
+      - name: Terraform build
+        run: |
+          cd infrastructure/terraform/
+          ~/.bin/terraform init -upgrade -reconfigure
+          ~/.bin/terraform apply -auto-approve
+          ~/.bin/terraform output -json > output.json
