@@ -1,1 +1,0 @@
-0 * * * * root /bin/bash /minecraft_server/backup.sh

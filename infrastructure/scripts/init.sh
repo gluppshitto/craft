@@ -19,22 +19,25 @@ sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_config
 sudo tar xvf serverpack_config.tar.gz 
 sudo cp -a serverpack_config/. ./
 
-sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_world.tar.gz 
-sudo tar xvf serverpack_world.tar.gz
-sudo cp -a serverpack_world/. world/
+if [[ $(aws s3 ls s3://glupp-metrics-storage/world/) ]]; then
+    aws s3 cp s3://glupp-metrics-storage/world/ world --recursive
+else
+    sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_world.tar.gz 
+    sudo tar xvf serverpack_world.tar.gz
+    sudo cp -a serverpack_world/. world/
 
-sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_1.tar.gz 
-sudo tar xvf serverpack_region_1.tar.gz
-cp -a serverpack_region_1/region/. world/region/
+    sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_1.tar.gz 
+    sudo tar xvf serverpack_region_1.tar.gz
+    cp -a serverpack_region_1/region/. world/region/
 
-sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_2.tar.gz 
-sudo tar xvf serverpack_region_2.tar.gz
-cp -a serverpack_region_2/region/. world/region/
+    sudo wget https://github.com/gluppshitto/craft/raw/main/assets/serverpack_region_2.tar.gz 
+    sudo tar xvf serverpack_region_2.tar.gz
+    cp -a serverpack_region_2/region/. world/region/
+fi
 
-# sudo -i
-# wget https://github.com/gluppshitto/craft/raw/main/infrastructure/scripts/backup.sh
-# touch ../etc/cron.d/backup_hourly
-# echo "0 * * * * root /bin/bash /minecraft_server/backup.sh" > ../etc/cron.d/backup_hourly
+sudo -i
+touch ../etc/cron.d/backup_hourly
+echo "0 * * * * root aws s3 cp world s3://glupp-metrics-storage/world/ --recursive" > ../etc/cron.d/backup_hourly
 
 
 if [ ! -f "eula.txt" ]; then
