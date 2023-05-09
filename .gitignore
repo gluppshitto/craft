@@ -1,2 +1,4 @@
 infrastructure/.terraform
 infrastructure/.terraform.lock.hcl
+ctl/Secrets.toml
+target/

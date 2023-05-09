@@ -38,14 +38,35 @@ else
     cp -a serverpack_region_2/region/. world/region/
 fi
 
-# Setup backup cron
+# Setup crons
 sudo -i
+
+# Hourly backup cron
 
 touch ../etc/cron.d/backup_hourly
 echo "*/10 * * * * root /minecraft_server/backup.sh" > ../etc/cron.d/backup_hourly
 
 touch backup.sh
 echo "aws s3 cp /minecraft_server/world/ s3://glupp-metrics-storage/world/ --recursive" > backup.sh
+
+# Online checker cron
+
+touch ../etc/cron.d/check_online
+echo "*/30 * * * * root /minecraft_server/is_online.sh" > ../etc/cron.d/check_online
+
+touch is_online.sh
+touch online_status
+echo "curl https://api.mcsrvstat.us/2/deanfogarty.link:443 | jq -r .players.online >> /minecraft_server/online_status" > is_online.sh
+
+# Stop if empty cron
+
+touch ../etc/cron.d/uptime_stopcheck
+echo "*/15 * * * * root /minecraft_server/uptime_stopcheck.sh" > ../etc/cron.d/uptime_stopcheck
+
+touch uptime_stopcheck.sh
+echo "tail -3 online >> online_last && if [ $(sed '3!d' online_last ) = 0 ] && [ $(sed '2!d' online_last ) = 0 ] && [ $(sed '3!d' online_last ) = 0 ]; then aws autoscaling set-desired-capacity --auto-scaling-group-name server --desired-capacity 0; fi && rm -rf online_last" > uptime_stopcheck.sh
+
+# EULA 
 
 sudo sed -i s/eula=false/eula=true/g eula.txt
 
