@@ -1,6 +1,7 @@
 #!/bin/bash
 
-yum update -y
+sudo yum update -y
+sudo yum -y install jq
 
 [[ -d minecraft_server ]] || mkdir -p minecraft_server/world/region
 
